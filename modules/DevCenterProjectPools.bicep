@@ -8,13 +8,13 @@ param devBoxDefinitionName string
   'Disabled'
 ])
 param localAdministrator string
-@minValue(60)
-param gracePeriodMinutes int
-@allowed([
-  'Enabled'
-  'Disabled'
-])
-param stopOnDisconnect string
+// @minValue(60)
+// param gracePeriodMinutes int
+// @allowed([
+//   'Enabled'
+//   'Disabled'
+// ])
+// param stopOnDisconnect string
 param deploySchedule bool
 param scheduleTime string = '00:00:00'
 param scheduleTimeZone string = 'Europe/Amsterdam'
@@ -34,10 +34,10 @@ resource ProjectPool 'Microsoft.DevCenter/projects/pools@2023-04-01' = {
     licenseType: LicenseType
     networkConnectionName: networkConnectionName
     devBoxDefinitionName: devBoxDefinitionName
-    stopOnDisconnect: {
-      gracePeriodMinutes: gracePeriodMinutes
-      status: stopOnDisconnect
-    }
+    // stopOnDisconnect: {
+    //   gracePeriodMinutes: gracePeriodMinutes
+    //   status: stopOnDisconnect
+    // }
     localAdministrator: localAdministrator
   }
 }

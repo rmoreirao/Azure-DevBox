@@ -5,7 +5,7 @@ param DevCenterGalleryImageName string
 param DevCenterDefinitionName string
 
 @allowed([
-  'general_a_8c32gb_v1'
+  'general_i_8c32gb512ssd_v2'
 ])
 param imageSKU string
 @allowed([

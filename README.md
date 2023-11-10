@@ -1,29 +1,54 @@
+# To test
+## To test the creation of DevCenter
+az deployment sub create --location WestEurope  --parameters mainDevCenter.bicepparam
+## To test the creation of Projects
+az deployment sub create --location WestEurope  --parameters mainProjects.bicepparam
+
+# Set current subscriptions:
+## Sub 01
+az account set --subscription 91e4cd90-811e-45d3-a068-670b6f14f580
+## Sub 02
+az account set --subscription 4c3f03bc-ab2c-4b0a-aa11-9fbc90cc7a58 
+## Sub 03
+az account set --subscription e4c095f5-0fb6-485c-9c13-22f5f97ab428
+
+# To run the commands as a Service Principal
+https://learn.microsoft.com/en-us/cli/azure/authenticate-azure-cli-service-principal
+
 # Azure Dev Box <!-- omit in toc -->
 
 This example deploys Azure Dev Box (Dev Center) based on existing VNET's, multiple projects and multiple pools and uses the builtin image gallery of Dev Center to deploy Dev Boxes.
 
 ## TOC <!-- omit in toc -->
 
-1. [Deployment flow](#deployment-flow)
-2. [Parameters](#parameters)
-   1. [general parameters](#general-parameters)
-   2. [Networks parameter block](#networks-parameter-block)
-   3. [Projects parameter block](#projects-parameter-block)
-   4. [Definitions parameter block](#definitions-parameter-block)
-3. [Supported VM Size](#supported-vm-size)
-4. [Supported Disk Sizes](#supported-disk-sizes)
-5. [Supported builtin images by Dev Box](#supported-builtin-images-by-dev-box)
+- [To test](#to-test)
+  - [To test the creation of DevCenter](#to-test-the-creation-of-devcenter)
+  - [To test the creation of Projects](#to-test-the-creation-of-projects)
+- [Set current subscriptions:](#set-current-subscriptions)
+  - [Sub 01](#sub-01)
+  - [Sub 02](#sub-02)
+  - [Sub 03](#sub-03)
+- [To run the commands as a Service Principal](#to-run-the-commands-as-a-service-principal)
+  - [Deployment flow](#deployment-flow)
+  - [Parameters](#parameters)
+    - [general parameters](#general-parameters)
+    - [Networks parameter block](#networks-parameter-block)
+    - [Projects parameter block](#projects-parameter-block)
+    - [Definitions parameter block](#definitions-parameter-block)
+  - [Supported VM Size](#supported-vm-size)
+  - [Supported Disk Sizes](#supported-disk-sizes)
+  - [Supported builtin images by Dev Box](#supported-builtin-images-by-dev-box)
 
 ## Deployment flow
 
 ```mermaid
 flowchart LR;
     subgraph main
-    main.bicep-->DevBox-Infra.bicep
+    main.bicep-->DevBox-DevCenter.bicep
     main.bicep-->DevBox-Networks.bicep
     main.bicep-->DevBox-Projects.bicep
     end
-    DevBox-Infra.bicep-->DevCenter
+    DevBox-DevCenter.bicep-->DevCenter
     DevBox-Networks.bicep-->|Scope VNET Subscription|VirtualNetworkConnections
     DevBox-Projects.bicep-->Projects
     subgraph modules

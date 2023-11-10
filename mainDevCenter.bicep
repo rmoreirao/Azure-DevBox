@@ -1,7 +1,24 @@
-targetScope = 'subscription'
+// Create the DevCenter and other resources related to the DevCenter directly (not project specific): Image Gallery and DevBox Definitions
 
+targetScope = 'subscription'
 param location string = deployment().location
-param DevCenter object
+
+@description('Dev Center Name')
+param DevCenterName string
+
+@description('Default resource Group')
+param resourceGroupName string
+
+@description('Array of Image Definitions to be used in Dev Center')
+param definitions array
+
+// Dev Center Object
+var DevCenter = {
+  name: DevCenterName
+  resourceGroupName: resourceGroupName
+  definitions: definitions
+}
+
 
 resource rg 'Microsoft.Resources/resourceGroups@2022-09-01' = {
   name: DevCenter.resourceGroupName
@@ -32,6 +49,3 @@ module devCenterBuiltinImages 'modules/DevCenterImage.bicep' = [for (definition,
     imageStorageType: definition.diskSize
   }
 }]
-
-output devCenterID string = devCenter.outputs.Id
-output devCenterName string = devCenter.outputs.Name
